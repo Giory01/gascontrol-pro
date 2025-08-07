@@ -29,7 +29,10 @@ const app = express();
 
 // --- Middlewares de Seguridad y Configuración ---
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000', // Para desarrollo local
+    'gascontrol-k4f4yigut-giorys-projects.vercel.app' // AÑADE TU URL DE VERCEL
+  ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
