@@ -1,0 +1,149 @@
+.dashboard-navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 0.8rem 1rem;
+}
+
+.dashboard-brand {
+    color: #1c2938 !important;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-navbar .btn-light {
+    border: none;
+    font-size: 1.2rem;
+    color: #1c2938;
+}
+
+.offcanvas-title {
+    font-weight: 700;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    color: #343a40;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+    color: #0d47a1;
+    transform: translateX(5px);
+}
+
+.btn-logout {
+    color: #0d47a1;
+    font-weight: 600;
+    border: 2px solid #e0e0e0;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-logout:hover {
+    background-color: #0d47a1;
+    color: #ffffff;
+    border-color: #0d47a1;
+}
+
+/* Estilos para la tarjeta de resumen */
+.summary-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+}
+.summary-card .card-title {
+    font-weight: 600;
+    color: #1c2938;
+}
+.summary-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0d47a1;
+}
+.summary-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pedidos-list {
+    margin-top: 1rem;
+}
+
+.pedido-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border-left: 5px solid #6c757d; /* Borde por defecto */
+}
+
+.pedido-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-color: #0d47a1;
+}
+
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #f0f2f5;
+    padding-bottom: 1rem;
+}
+
+.pedido-cliente {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1c2938;
+}
+
+.badge-estado {
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    color: #212529 !important;
+}
+
+.estado-pendiente { border-left-color: #ffc107; }
+.estado-entregado { border-left-color: #198754; opacity: 0.7; }
+.estado-cancelado { border-left-color: #dc3545; opacity: 0.6; text-decoration: line-through; }
+.estado-encamino { border-left-color: #0dcaf0; }
+
+/* Estilos para el contenedor de autocompletado */
+.autocomplete-container {
+    position: relative;
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1056; /* Debe estar por encima del modal */
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f2f5;
+}

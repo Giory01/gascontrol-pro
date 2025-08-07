@@ -1,0 +1,86 @@
+/* Contenedor principal de toda la página, incluyendo la Navbar */
+.map-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    width: 100vw; /* Ocupa todo el ancho de la ventana */
+    overflow: hidden;
+}
+
+.map-page-container {
+    display: flex;
+    flex-grow: 1; /* Hace que este contenedor ocupe el espacio restante */
+    width: 100%;
+    overflow: hidden;
+}
+
+.map-sidebar {
+    width: 30%;
+    max-width: 380px;
+    min-width: 320px;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-container {
+    flex-grow: 1;
+    height: 100%;
+}
+
+.sidebar-header h4 {
+    font-weight: 700;
+    color: #1c2938;
+}
+
+.pedidos-scroll-list {
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-top: 1rem;
+}
+
+.pedido-item-map {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.pedido-item-map:hover {
+    background-color: #f8f9fa;
+}
+
+.pedido-item-map.hovered {
+    background-color: #e3f2fd;
+    border-left: 4px solid #0d47a1;
+    padding-left: calc(1rem - 4px);
+}
+
+.route-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0d47a1;
+    min-width: 30px;
+    text-align: center;
+}
+
+.route-details h6 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.route-details p {
+    margin-bottom: 0;
+}
+
+.route-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #198754;
+}

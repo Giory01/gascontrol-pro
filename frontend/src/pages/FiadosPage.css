@@ -1,0 +1,17 @@
+.fiados-table {
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    border-radius: 12px;
+    overflow: hidden; /* Para que los bordes redondeados se apliquen a la tabla */
+}
+
+.fiados-table thead {
+    background-color: #0d47a1;
+    color: white;
+    font-weight: 600;
+}
+
+.deuda-total {
+    font-weight: 700;
+    color: #dc3545; /* Rojo para destacar la deuda */
+}

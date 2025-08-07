@@ -1,0 +1,84 @@
+/* Estilos Generales y Fondos */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/* Contenedor principal para centrar las páginas que lo necesiten */
+.centered-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* Tarjeta de Autenticación con Animación de Fundido */
+.auth-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Títulos */
+.auth-title {
+    color: #1c2938;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+/* Botones */
+.btn-primary {
+    background: linear-gradient(45deg, #0d47a1, #1976d2);
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+}
+
+/* Enlace para cambiar entre login y registro */
+.auth-switch-link {
+    color: #0d47a1;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1.5rem;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.auth-switch-link:hover {
+    color: #0b3b84;
+    text-decoration: underline;
+}

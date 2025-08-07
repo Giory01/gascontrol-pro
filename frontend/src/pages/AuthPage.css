@@ -1,0 +1,25 @@
+.password-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.password-input-group .form-control {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.password-input-group .password-toggle-button {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: white;
+    color: #0d47a1;
+    border-color: #ced4da;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.password-input-group .password-toggle-button:hover {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
