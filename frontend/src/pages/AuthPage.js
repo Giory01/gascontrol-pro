@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-// CORRECCIÓN: Se eliminó 'Alert' de esta línea porque ya no se usa.
 import { Form, Button, Card, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { toast } from 'react-toastify';
 import './AuthPage.css';
 
-// Se añaden setPersistence y browserSessionPersistence
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import firebaseConfig from '../firebaseConfig';
@@ -14,7 +12,6 @@ import firebaseConfig from '../firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// --- Componente del Formulario de Login ---
 const LoginForm = ({ onSwitch }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -61,8 +58,6 @@ const LoginForm = ({ onSwitch }) => {
     );
 };
 
-
-// --- Componente del Formulario de Registro ---
 const RegisterForm = ({ onSwitch }) => {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
@@ -86,7 +81,7 @@ const RegisterForm = ({ onSwitch }) => {
         setLoading(true);
 
         try {
-            await axios.post('http://localhost:5000/api/auth/register', {
+            await api.post('/api/auth/register', {
                 nombre, email, password, profilePictureUrl
             });
             toast.success('¡Registro exitoso! Por favor, inicia sesión para continuar.');
@@ -145,11 +140,8 @@ const RegisterForm = ({ onSwitch }) => {
     );
 };
 
-
-// --- Componente Principal ---
 const AuthPage = () => {
     const [isLoginView, setIsLoginView] = useState(true);
-
     const switchView = () => setIsLoginView(!isLoginView);
 
     return (
@@ -157,9 +149,7 @@ const AuthPage = () => {
             <Card.Body>
                 <h2 className="auth-title">GasControl</h2>
                 <h3 className="auth-subtitle">{isLoginView ? 'Iniciar Sesión' : 'Crear Cuenta'}</h3>
-                
                 {isLoginView ? <LoginForm onSwitch={switchView} /> : <RegisterForm onSwitch={switchView} />}
-                
                 <div className="auth-switch-link" onClick={switchView}>
                     {isLoginView ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes una cuenta? Inicia Sesión'}
                 </div>
