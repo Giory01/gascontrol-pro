@@ -29,9 +29,10 @@ const app = express();
 
 // --- Middlewares de Seguridad y Configuración ---
 app.use(cors({
+  // Añadimos la URL de Vercel a la lista de orígenes permitidos
   origin: [
-    'http://localhost:3000', // Para desarrollo local
-    'gascontrol-k4f4yigut-giorys-projects.vercel.app' // AÑADE TU URL DE VERCEL
+    'http://localhost:3000',
+    'https://gascontrol-n5taa6y3w-giorys-projects.vercel.app'
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
