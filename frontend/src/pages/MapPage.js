@@ -6,6 +6,7 @@ import { GoogleMap, Marker, InfoWindow, DirectionsService, DirectionsRenderer } 
 import { Container, Spinner, Navbar, Button, Badge } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar';
 import { FaBars, FaRoute } from 'react-icons/fa';
+import { getAuth, signOut } from 'firebase/auth';
 import useIdleTimer from '../hooks/useIdleTimer';
 import './MapPage.css';
 

@@ -6,6 +6,7 @@ import { Navbar, Container, Button, Table, Spinner, Card, Modal, Form, ListGroup
 import { FaBars } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import useIdleTimer from '../hooks/useIdleTimer';
+import { getAuth, signOut } from 'firebase/auth';
 import './FiadosPage.css';
 
 const FiadosPage = () => {
