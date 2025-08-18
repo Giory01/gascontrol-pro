@@ -25,6 +25,8 @@ const DashboardPage = () => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showSidebar, setShowSidebar] = useState(false);
+
+    // Estados del formulario
     const [cliente, setCliente] = useState('');
     const [direccion, setDireccion] = useState('');
     const [tamanoTanque, setTamanoTanque] = useState('20kg');
@@ -32,6 +34,7 @@ const DashboardPage = () => {
     const [geolocation, setGeolocation] = useState(null);
     const [tipoPago, setTipoPago] = useState('Contado');
     const [precioTotalModal, setPrecioTotalModal] = useState(PRECIOS_FRONTEND['20kg'] * 1);
+
     const auth = getAuth();
 
     const handleIdle = useCallback(() => {
@@ -82,11 +85,11 @@ const DashboardPage = () => {
         }
     };
     
-    const calcularPrecioTotalModal = useCallback((tamano, cantidad) => {
+    const calcularPrecioTotalModal = useCallback((tamano = tamanoTanque, cantidad = numeroDeTanques) => {
         const precioUnitario = PRECIOS_FRONTEND[tamano] || 0;
         const cant = parseInt(cantidad, 10);
         setPrecioTotalModal(precioUnitario * (isNaN(cant) ? 0 : cant));
-    }, []);
+    }, [tamanoTanque, numeroDeTanques]);
 
     const handleCrearPedido = async (e) => {
         e.preventDefault();
@@ -97,11 +100,16 @@ const DashboardPage = () => {
             setPedidos(prevPedidos => [response.data, ...prevPedidos]);
             setShowModal(false);
             toast.success("¡Pedido creado exitosamente!");
-            setCliente(''); setDireccion(''); setTamanoTanque('20kg');
-            setNumeroDeTanques(1); setGeolocation(null); setTipoPago('Contado');
+            // Limpiar formulario
+            setCliente(''); 
+            setDireccion(''); 
+            setTamanoTanque('20kg');
+            setNumeroDeTanques(1); 
+            setGeolocation(null); 
+            setTipoPago('Contado');
             setPrecioTotalModal(PRECIOS_FRONTEND['20kg'] * 1);
         } catch (error) {
-            toast.error("Error al crear el pedido.");
+            toast.error("Error al crear el pedido. Revisa que todos los campos estén correctos.");
         }
     };
 
@@ -112,7 +120,7 @@ const DashboardPage = () => {
             toast.success(`Pedido marcado como "${nuevoEstado}".`);
             setPedidos(prevPedidos => prevPedidos.map(p => p.id === pedidoId ? { ...p, estado: nuevoEstado } : p));
         } catch (error) {
-            toast.error("Error al actualizar el estado.");
+            toast.error("Error al actualizar el estado del pedido.");
         }
     };
 

@@ -4,7 +4,6 @@ import { useAuth } from './context/AuthContext';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// Ya no se necesitan importaciones de @react-google-maps/api ni de Spinner aquí
 
 // Páginas
 import AuthPage from './pages/AuthPage';
@@ -23,7 +22,6 @@ function ProtectedRoute({ children }) {
 function App() {
   const { currentUser } = useAuth();
 
-  // Se ha eliminado el componente <LoadScript> que envolvía todo
   return (
     <>
       <ToastContainer
@@ -42,7 +40,6 @@ function App() {
         <Routes>
           <Route path="/" element={currentUser ? <Navigate to="/dashboard" /> : <div className="centered-page-container"><AuthPage /></div>} />
           <Route path="/privacy" element={<div className="centered-page-container"><PrivacyPolicyPage /></div>} />
-
           <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
           <Route path="/map" element={<ProtectedRoute><MapPage /></ProtectedRoute>} />
           <Route path="/fiados" element={<ProtectedRoute><FiadosPage /></ProtectedRoute>} />
