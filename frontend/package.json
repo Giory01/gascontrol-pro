@@ -2,6 +2,9 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
     "@testing-library/dom": "^10.4.0",
