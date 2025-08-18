@@ -36,10 +36,12 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <Router>
+<Router>
         <Routes>
           <Route path="/" element={currentUser ? <Navigate to="/dashboard" /> : <div className="centered-page-container"><AuthPage /></div>} />
-          <Route path="/privacy" element={<div className="centered-page-container"><PrivacyPolicyPage /></div>} />
+          
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+
           <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
           <Route path="/map" element={<ProtectedRoute><MapPage /></ProtectedRoute>} />
           <Route path="/fiados" element={<ProtectedRoute><FiadosPage /></ProtectedRoute>} />

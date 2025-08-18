@@ -120,14 +120,14 @@ const RegisterForm = ({ onSwitch }) => {
                 <Form.Label>URL de Foto de Perfil (Opcional)</Form.Label>
                 <Form.Control type="url" placeholder="https://ejemplo.com/foto.jpg" value={profilePictureUrl} onChange={(e) => setProfilePictureUrl(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="privacyPolicyCheck">
+             <Form.Group className="mb-3" controlId="privacyPolicyCheck">
                 <Form.Check 
                     type="checkbox"
                     checked={privacyPolicyAccepted}
                     onChange={(e) => setPrivacyPolicyAccepted(e.target.checked)}
                     label={
                         <>
-                            He leído y acepto la <Link to="/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidad</Link>.
+                            He leído y acepto la <Link to="/privacy">Política de Privacidad</Link>.
                         </>
                     }
                     required
