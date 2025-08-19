@@ -1,0 +1,39 @@
+.profile-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.profile-header {
+    background: linear-gradient(45deg, #0d47a1, #1976d2);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 12px 12px 0 0;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.profile-header h4 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.profile-details .list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.profile-details strong {
+    color: #343a40;
+}

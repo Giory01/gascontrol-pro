@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getAuth, signOut } from 'firebase/auth';
 import api from '../api';
 import { toast } from 'react-toastify';
-import { Navbar, Container, Button, Modal, Form, Spinner, Card, Badge, ButtonGroup, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Button, Modal, Form, Spinner, Card, Badge, ButtonGroup, Row, Col, NavDropdown } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import PlacesAutocomplete from '../components/PlacesAutocomplete';
@@ -25,8 +25,6 @@ const DashboardPage = () => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showSidebar, setShowSidebar] = useState(false);
-
-    // Estados del formulario
     const [cliente, setCliente] = useState('');
     const [direccion, setDireccion] = useState('');
     const [tamanoTanque, setTamanoTanque] = useState('20kg');
@@ -34,7 +32,6 @@ const DashboardPage = () => {
     const [geolocation, setGeolocation] = useState(null);
     const [tipoPago, setTipoPago] = useState('Contado');
     const [precioTotalModal, setPrecioTotalModal] = useState(PRECIOS_FRONTEND['20kg'] * 1);
-
     const auth = getAuth();
 
     const handleIdle = useCallback(() => {
@@ -85,11 +82,11 @@ const DashboardPage = () => {
         }
     };
     
-    const calcularPrecioTotalModal = useCallback((tamano = tamanoTanque, cantidad = numeroDeTanques) => {
+    const calcularPrecioTotalModal = useCallback((tamano, cantidad) => {
         const precioUnitario = PRECIOS_FRONTEND[tamano] || 0;
         const cant = parseInt(cantidad, 10);
         setPrecioTotalModal(precioUnitario * (isNaN(cant) ? 0 : cant));
-    }, [tamanoTanque, numeroDeTanques]);
+    }, []);
 
     const handleCrearPedido = async (e) => {
         e.preventDefault();
@@ -100,16 +97,11 @@ const DashboardPage = () => {
             setPedidos(prevPedidos => [response.data, ...prevPedidos]);
             setShowModal(false);
             toast.success("¡Pedido creado exitosamente!");
-            // Limpiar formulario
-            setCliente(''); 
-            setDireccion(''); 
-            setTamanoTanque('20kg');
-            setNumeroDeTanques(1); 
-            setGeolocation(null); 
-            setTipoPago('Contado');
+            setCliente(''); setDireccion(''); setTamanoTanque('20kg');
+            setNumeroDeTanques(1); setGeolocation(null); setTipoPago('Contado');
             setPrecioTotalModal(PRECIOS_FRONTEND['20kg'] * 1);
         } catch (error) {
-            toast.error("Error al crear el pedido. Revisa que todos los campos estén correctos.");
+            toast.error("Error al crear el pedido.");
         }
     };
 
@@ -120,7 +112,7 @@ const DashboardPage = () => {
             toast.success(`Pedido marcado como "${nuevoEstado}".`);
             setPedidos(prevPedidos => prevPedidos.map(p => p.id === pedidoId ? { ...p, estado: nuevoEstado } : p));
         } catch (error) {
-            toast.error("Error al actualizar el estado del pedido.");
+            toast.error("Error al actualizar el estado.");
         }
     };
 
@@ -148,10 +140,25 @@ const DashboardPage = () => {
             <Navbar className="dashboard-navbar mb-4">
                 <Container fluid>
                     <Button variant="light" onClick={() => setShowSidebar(true)} className="me-2"><FaBars /></Button>
-                    <Navbar.Brand href="#">GasControl Pro</Navbar.Brand>
+                    <Navbar.Brand href="/dashboard">GasControl Pro</Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
-                        <img src={currentUser.photoURL || `https://ui-avatars.com/api/?name=${currentUser.displayName || 'G'}`} alt="perfil" width="30" height="30" className="d-inline-block align-top rounded-circle me-3" />
-                        <Button variant="outline-primary" className="btn-logout" onClick={handleLogout}>Cerrar Sesión</Button>
+                        <NavDropdown 
+                            title={
+                                <img 
+                                    src={currentUser.photoURL || `https://ui-avatars.com/api/?name=${currentUser.displayName || 'G'}&background=0d47a1&color=fff`} 
+                                    alt="perfil" 
+                                    width="30" 
+                                    height="30" 
+                                    className="d-inline-block align-top rounded-circle" 
+                                />
+                            } 
+                            id="basic-nav-dropdown" 
+                            align="end"
+                        >
+                            <NavDropdown.Item as={Link} to="/perfil">Mi Perfil</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+                        </NavDropdown>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

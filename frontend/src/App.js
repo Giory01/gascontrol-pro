@@ -12,6 +12,8 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import MapPage from './pages/MapPage';
 import FiadosPage from './pages/FiadosPage';
 import ReportesPage from './pages/ReportesPage';
+import PricingPage from './pages/PricingPage';
+import ProfilePage from './pages/ProfilePage';
 import './App.css';
 
 function ProtectedRoute({ children }) {
@@ -46,6 +48,8 @@ function App() {
           <Route path="/map" element={<ProtectedRoute><MapPage /></ProtectedRoute>} />
           <Route path="/fiados" element={<ProtectedRoute><FiadosPage /></ProtectedRoute>} />
           <Route path="/reportes" element={<ProtectedRoute><ReportesPage /></ProtectedRoute>} />
+          <Route path="/planes" element={<ProtectedRoute><PricingPage /></ProtectedRoute>} />
+          <Route path="/perfil" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
         </Routes>
       </Router>
     </>

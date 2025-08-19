@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { getAuth, signOut } from 'firebase/auth';
 import api from '../api';
 import { toast } from 'react-toastify';
-import { Navbar, Container, Button, Table, Spinner, Card, Modal, Form, ListGroup, Badge } from 'react-bootstrap';
+import { Navbar, Container, Button, Table, Spinner, Card, Modal, Form, ListGroup, Badge, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import useIdleTimer from '../hooks/useIdleTimer';
-import { getAuth, signOut } from 'firebase/auth';
 import './FiadosPage.css';
 
 const FiadosPage = () => {
@@ -44,6 +45,15 @@ const FiadosPage = () => {
     useEffect(() => {
         fetchDeudores();
     }, [fetchDeudores]);
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            toast.info("Has cerrado sesión. ¡Vuelve pronto!");
+        } catch (error) {
+            toast.error('Error al cerrar sesión.');
+        }
+    };
 
     const handleOpenPagoModal = (deudor) => {
         setSelectedDeudor(deudor);
@@ -86,7 +96,18 @@ const FiadosPage = () => {
             <Navbar className="dashboard-navbar mb-4">
                  <Container fluid>
                     <Button variant="light" onClick={() => setShowSidebar(true)} className="me-2"><FaBars /></Button>
-                    <Navbar.Brand href="#">Control de Fiados</Navbar.Brand>
+                    <Navbar.Brand href="/dashboard">Control de Fiados</Navbar.Brand>
+                    <Navbar.Collapse className="justify-content-end">
+                        <NavDropdown 
+                            title={<img src={currentUser.photoURL || `https://ui-avatars.com/api/?name=${currentUser.displayName || 'G'}`} alt="perfil" width="30" height="30" className="d-inline-block align-top rounded-circle" />} 
+                            id="basic-nav-dropdown" 
+                            align="end"
+                        >
+                            <NavDropdown.Item as={Link} to="/perfil">Mi Perfil</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+                        </NavDropdown>
+                    </Navbar.Collapse>
                  </Container>
             </Navbar>
             <Container>
@@ -118,7 +139,6 @@ const FiadosPage = () => {
                     </Table>
                 )}
             </Container>
-
             {selectedDeudor && (
                 <>
                     <Modal show={showPagoModal} onHide={handleCloseModals} centered>
@@ -134,7 +154,6 @@ const FiadosPage = () => {
                             </Form>
                         </Modal.Body>
                     </Modal>
-
                     <Modal show={showHistorialModal} onHide={handleCloseModals} centered size="lg">
                         <Modal.Header closeButton><Modal.Title>Historial de Deuda de {selectedDeudor.clienteNombre}</Modal.Title></Modal.Header>
                         <Modal.Body>

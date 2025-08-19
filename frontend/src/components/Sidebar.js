@@ -1,6 +1,6 @@
 import React from 'react';
-import { Offcanvas, Nav } from 'react-bootstrap';
-import { FaClipboardList, FaMapMarkedAlt, FaChartBar, FaUserClock } from 'react-icons/fa';
+import { Offcanvas, Nav, Button } from 'react-bootstrap'; // Se añadió 'Button'
+import { FaClipboardList, FaMapMarkedAlt, FaChartBar, FaUserClock, FaRocket } from 'react-icons/fa'; // Se añadió 'FaRocket'
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ show, handleClose }) => {
@@ -9,8 +9,8 @@ const Sidebar = ({ show, handleClose }) => {
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title className="fw-bold">GasControl Pro</Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
-                <Nav className="flex-column">
+            <Offcanvas.Body className="d-flex flex-column">
+                <Nav className="flex-column flex-grow-1">
                     <Nav.Link as={Link} to="/dashboard" className="d-flex align-items-center mb-2 fs-5">
                         <FaClipboardList className="me-3" /> Mis Pedidos
                     </Nav.Link>
@@ -24,6 +24,11 @@ const Sidebar = ({ show, handleClose }) => {
                         <FaChartBar className="me-3" /> Reportes
                     </Nav.Link>
                 </Nav>
+                <div className="mt-4">
+                    <Button as={Link} to="/planes" variant="success" className="w-100">
+                        <FaRocket className="me-2" /> Pasar a Pro
+                    </Button>
+                </div>
             </Offcanvas.Body>
         </Offcanvas>
     );

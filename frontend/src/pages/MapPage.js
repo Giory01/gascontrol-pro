@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { getAuth, signOut } from 'firebase/auth';
 import api from '../api';
 import { toast } from 'react-toastify';
 import { GoogleMap, Marker, InfoWindow, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import { Container, Spinner, Navbar, Button, Badge } from 'react-bootstrap';
+import { Container, Spinner, Navbar, Button, NavDropdown, Badge } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { FaBars, FaRoute } from 'react-icons/fa';
-import { getAuth, signOut } from 'firebase/auth';
 import useIdleTimer from '../hooks/useIdleTimer';
 import './MapPage.css';
 
@@ -58,6 +59,15 @@ const MapPage = () => {
         return [routeRequest.origin.originalPedido, ...reorderedWaypoints];
     }, [directions, pedidos, routeRequest]);
 
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            toast.info("Has cerrado sesión. ¡Vuelve pronto!");
+        } catch (error) {
+            toast.error('Error al cerrar sesión.');
+        }
+    };
+
     const handleOptimizeRoute = () => {
         if (pedidos.length < 2) {
             return toast.info("Necesitas al menos dos pedidos para optimizar una ruta.");
@@ -105,7 +115,18 @@ const MapPage = () => {
             <Navbar className="dashboard-navbar">
                 <Container fluid>
                     <Button variant="light" onClick={() => setShowSidebar(true)} className="me-2"><FaBars /></Button>
-                    <Navbar.Brand href="#">Mapa de Entregas</Navbar.Brand>
+                    <Navbar.Brand href="/dashboard">Mapa de Entregas</Navbar.Brand>
+                    <Navbar.Collapse className="justify-content-end">
+                        <NavDropdown 
+                            title={<img src={currentUser.photoURL || `https://ui-avatars.com/api/?name=${currentUser.displayName || 'G'}`} alt="perfil" width="30" height="30" className="d-inline-block align-top rounded-circle" />} 
+                            id="basic-nav-dropdown" 
+                            align="end"
+                        >
+                            <NavDropdown.Item as={Link} to="/perfil">Mi Perfil</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+                        </NavDropdown>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
             <div className="map-page-container">
@@ -140,8 +161,8 @@ const MapPage = () => {
                 <main className="map-container">
                     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={13} center={center}>
                         {!directions && pedidos.map(pedido => <Marker key={pedido.id} position={pedido.geolocation} onClick={() => setSelectedPedido(pedido)} animation={hoveredPedidoId === pedido.id && window.google ? window.google.maps.Animation.BOUNCE : null} />)}
-                        {directions && <DirectionsRenderer directions={directions} options={{ suppressMarkers: true }} />}
-                        {selectedPedido && <InfoWindow position={selectedPedido.geolocation} onCloseClick={() => setSelectedPedido(null)}><div><h6 className="fw-bold">{selectedPedido.cliente}</h6><p className="mb-1 small">{selectedPedido.direccion}</p><p className="mb-0 small"><strong>Pedido:</strong> {selectedPedido.numeroDeTanques} x {selectedPedido.tamanoTanque}</p></div></InfoWindow>}
+                        {directions && <DirectionsRenderer directions={directions} options={{ suppressMarkers: false }} />}
+                        {selectedPedido && <InfoWindow position={selectedPedido.geolocation} onCloseClick={() => setSelectedPedido(null)}><div><h6 className="fw-bold">{selectedPedido.cliente}</h6><p className="mb-1 small">{selectedPedido.direccion}</p><p className="mb-0 small"><strong>Pedido:</strong> {selectedPedido.numeroDeTanques} x {selectedPedido.tamanoTanque}</p><p className="mb-0 small"><strong>Estado:</strong> {selectedPedido.estado}</p></div></InfoWindow>}
                         {routeRequest && <DirectionsService options={{ origin: routeRequest.origin.location, destination: routeRequest.destination.location, waypoints: routeRequest.waypoints.map(wp => ({ location: wp.location, stopover: wp.stopover })), optimizeWaypoints: true, travelMode: 'DRIVING' }} callback={directionsCallback} onLoad={() => setRouteRequest(null)} />}
                     </GoogleMap>
                 </main>
